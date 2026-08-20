@@ -72,8 +72,8 @@ a:hover{color:var(--gold-2)}
 .brand-mark{
   width:48px;height:48px;flex:0 0 48px;
   border-radius:12px;overflow:hidden;
-  background:#000B2E;
-  box-shadow:0 0 0 1px rgba(255,255,255,.28);
+  background:#0A1220;
+  box-shadow:0 0 0 1px rgba(0,168,255,.4);
   animation:markglow 2.8s ease-in-out infinite alternate,bob 4.4s ease-in-out infinite;
 }
 .brand-mark img{width:48px;height:48px;object-fit:contain;object-position:center}
