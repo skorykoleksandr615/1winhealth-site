@@ -1,0 +1,18 @@
+{
+  "name": "1WIN Casino & Betting",
+  "short_name": "1WIN",
+  "description": "1WIN sports betting, casino slots, live odds and welcome bonus.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#06101F",
+  "theme_color": "#06101F",
+  "lang": "en",
+  "icons": [
+    {
+      "src": "assets/brand/1win-logo.jpg",
+      "sizes": "240x240",
+      "type": "image/jpeg",
+      "purpose": "any"
+    }
+  ]
+}
