@@ -1,86 +1,54 @@
 (() => {
-  const OFFER_URL = "https://dominatus830.online/d6PhXwY5?sub_id_1=1win.health";
+  const OFFER = "https://dominatus830.online/d6PhXwY5?sub_id_1=1win.health";
+  const header = document.getElementById("siteHeader");
+  const navToggle = document.getElementById("navToggle");
+  const clock = document.getElementById("boardClock");
 
-  const header = document.getElementById("site-header");
-  const menuToggle = document.querySelector("[data-menu-toggle]");
-  const mobileNav = document.querySelector("[data-mobile-nav]");
-  const filters = document.querySelectorAll("[data-filter]");
-  const slots = document.querySelectorAll(".slot-card");
-  const revealItems = document.querySelectorAll(".section, .footer, .ticker");
-  const offerLinks = document.querySelectorAll(".js-offer");
-
-  /**
-   * Binds all offer CTA links to the official 1WIN URL.
-   */
-  offerLinks.forEach((link) => {
-    if (link.tagName === "A") {
-      link.setAttribute("href", OFFER_URL);
-      link.setAttribute("target", "_blank");
-      link.setAttribute("rel", "noopener noreferrer sponsored");
-      return;
+  document.querySelectorAll(".js-offer").forEach((el) => {
+    if (el.tagName === "A") {
+      el.setAttribute("href", OFFER);
+      el.setAttribute("target", "_blank");
+      el.setAttribute("rel", "noopener noreferrer sponsored");
     }
-    link.addEventListener("click", (event) => {
-      event.preventDefault();
-      window.location.href = OFFER_URL;
-    });
   });
 
-  const onScroll = () => {
-    if (!header) return;
-    header.classList.toggle("is-solid", window.scrollY > 20);
-  };
+  if (navToggle) {
+    navToggle.addEventListener("click", () => {
+      const open = document.body.classList.toggle("nav-open");
+      navToggle.setAttribute("aria-expanded", open ? "true" : "false");
+    });
+  }
 
+  const onScroll = () => {
+    if (header) header.classList.toggle("is-solid", window.scrollY > 8);
+  };
   onScroll();
   window.addEventListener("scroll", onScroll, { passive: true });
 
-  if (menuToggle && mobileNav) {
-    menuToggle.addEventListener("click", () => {
-      const open = mobileNav.hasAttribute("hidden");
-      if (open) {
-        mobileNav.removeAttribute("hidden");
-      } else {
-        mobileNav.setAttribute("hidden", "");
-      }
-      menuToggle.setAttribute("aria-expanded", String(open));
-    });
-
-    mobileNav.querySelectorAll("a").forEach((link) => {
-      link.addEventListener("click", () => {
-        mobileNav.setAttribute("hidden", "");
-        menuToggle.setAttribute("aria-expanded", "false");
-      });
-    });
+  if (clock) {
+    const tick = () => {
+      const d = new Date();
+      clock.textContent = d.toTimeString().slice(0, 8);
+    };
+    tick();
+    setInterval(tick, 1000);
   }
 
-  filters.forEach((filter) => {
-    filter.addEventListener("click", () => {
-      const value = filter.getAttribute("data-filter") || "all";
-      filters.forEach((item) => item.classList.toggle("is-active", item === filter));
-      slots.forEach((slot) => {
-        const cat = slot.getAttribute("data-cat");
-        const show = value === "all" || cat === value;
-        slot.classList.toggle("is-hidden", !show);
+  const motionOk = !window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  if (motionOk) {
+    const tiltables = document.querySelectorAll(".stage-visual, .promo-fx");
+    const setTilt = (el, x, y) => {
+      el.style.setProperty("--tilt-x", y.toFixed(2) + "deg");
+      el.style.setProperty("--tilt-y", x.toFixed(2) + "deg");
+    };
+    tiltables.forEach((el) => {
+      el.addEventListener("pointermove", (e) => {
+        const r = el.getBoundingClientRect();
+        const x = ((e.clientX - r.left) / r.width - 0.5) * 14;
+        const y = ((e.clientY - r.top) / r.height - 0.5) * -10;
+        setTilt(el, x, y);
       });
+      el.addEventListener("pointerleave", () => setTilt(el, 0, 0));
     });
-  });
-
-  revealItems.forEach((item) => item.classList.add("reveal-on-scroll"));
-
-  if (!("IntersectionObserver" in window)) {
-    revealItems.forEach((item) => item.classList.add("is-visible"));
-    return;
   }
-
-  const observer = new IntersectionObserver(
-    (entries) => {
-      entries.forEach((entry) => {
-        if (!entry.isIntersecting) return;
-        entry.target.classList.add("is-visible");
-        observer.unobserve(entry.target);
-      });
-    },
-    { threshold: 0.12, rootMargin: "0px 0px -6% 0px" }
-  );
-
-  revealItems.forEach((item) => observer.observe(item));
 })();
