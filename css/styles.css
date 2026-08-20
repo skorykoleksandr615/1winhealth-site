@@ -70,18 +70,16 @@ a:hover{color:var(--gold-2)}
 .header-bar{display:flex;align-items:center;gap:.65rem;min-height:74px}
 .brand{display:flex;align-items:center;gap:.7rem;color:#fff;min-width:0}
 .brand-mark{
-  width:48px;height:48px;flex:0 0 48px;
-  border-radius:12px;overflow:hidden;
-  background:#0A1220;
-  box-shadow:0 0 0 1px rgba(0,168,255,.4);
-  animation:markglow 2.8s ease-in-out infinite alternate,bob 4.4s ease-in-out infinite;
+  width:auto;height:40px;flex:0 0 auto;
+  border-radius:0;overflow:visible;
+  background:transparent;
+  box-shadow:none;
 }
-.brand-mark img{width:48px;height:48px;object-fit:contain;object-position:center}
-.brand-copy{display:flex;flex-direction:column;min-width:0}
+.brand-mark img{width:auto;height:40px;max-width:156px;object-fit:contain;object-position:left center}
+.brand-copy{display:flex;flex-direction:column;justify-content:center;min-width:0}
 .brand-name{
-  font-family:var(--display);
-  font-weight:800;font-size:1.15rem;letter-spacing:.01em;
-  line-height:1.05;white-space:nowrap;color:#fff;
+  position:absolute;width:1px;height:1px;padding:0;margin:-1px;
+  overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0;
 }
 .brand-tag{font-size:.68rem;color:#fff;letter-spacing:.16em;text-transform:uppercase;font-weight:800;opacity:.88}
 .site-nav{display:flex;flex-wrap:wrap;gap:.08rem .45rem;margin-left:auto}
@@ -457,7 +455,7 @@ h1 span{display:block;color:var(--gold);font-size:.52em;margin-top:.4rem;max-wid
   .lead,.promo-sub{overflow-wrap:anywhere}
   .cta-row .btn{flex:1 1 auto}
   .card-grid,.grid-3,.chapter-grid,.contact-grid{grid-template-columns:1fr}
-  .brand-name{font-size:1.02rem}
+  .brand-mark img{height:34px;max-width:128px}
   .header-cta{padding:.5rem .75rem}
   @keyframes floatA{0%,100%{transform:translate3d(0,0,0)}50%{transform:translate3d(0,-8px,0)}}
   @keyframes floatB{0%,100%{transform:translate3d(0,0,0)}50%{transform:translate3d(0,-6px,0)}}
